@@ -1,0 +1,8 @@
+#!/bin/bash -u
+
+rm -rf .git
+git init
+git add -A
+git commit -m hoge
+git remote add origin git@github.com:kuuote-sandbox/dps-test
+git push -f
