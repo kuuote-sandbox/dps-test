@@ -1,19 +1,24 @@
-import type { Denops } from "./deps.ts";
-import { autocmd } from "./deps.ts";
-import { batch, execute } from "./deps.ts";
-import { fn } from "./deps.ts";
-import { nvimFn } from "./deps.ts";
-import { uu } from "./deps.ts";
-import { vars } from "./deps.ts";
-import { vimFn } from "./deps.ts";
+import { Denops, fn, mapping } from "./deps.ts";
 
 export async function main(denops: Denops) {
   denops.dispatcher = {
     async test(): Promise<string> {
-      await denops.cmd('echo "getline from denops.vim"');
-      return await fn.getline(denops, ".");
+      const line = await fn.getline(denops, ".");
+      await denops.cmd('echo "getline from denops.vim: " .. line', {
+        line,
+      });
+      return line;
     },
   };
 
+  await mapping.map(
+    denops,
+    "Q",
+    `:<C-u>call denops#request('${denops.name}', 'test', [])<CR>`,
+    {
+      mode: "n",
+      noremap: true,
+    },
+  );
   await denops.cmd('echomsg "loaded sandbox"');
 }
