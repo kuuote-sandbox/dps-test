@@ -1,6 +1,10 @@
 import { Denops, fn, mapping } from "./deps.ts";
 
 export async function main(denops: Denops) {
+  const exe = false;
+  if(!exe){
+    return;
+  }
   denops.dispatcher = {
     async test(): Promise<string> {
       const line = await fn.getline(denops, ".");
