@@ -17,7 +17,7 @@ export async function main(denops: Denops) {
 
   await mapping.map(
     denops,
-    "Q",
+    "W",
     `:<C-u>call denops#request('${denops.name}', 'test', [])<CR>`,
     {
       mode: "n",
